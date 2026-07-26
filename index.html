@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rafizah — Graphic Design Doodles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bangers&family=Comic+Neue:wght@400;700&family=Baloo+2:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sky: #d7ecf7;
+    --sky-deep: #a9d7ee;
+    --panel: #fffdf7;
+    --ink: #223a5e;
+    --ink-soft: #4a6fa5;
+    --pop: #ff8a65;
+    --pop-deep: #ef5f4b;
+    --sun: #ffd166;
+    --line: #26344a;
+  }
+
+  *{ box-sizing: border-box; }
+
+  html{ scroll-behavior: smooth; }
+
+  body{
+    margin:0;
+    background: var(--sky);
+    background-image:
+      radial-gradient(circle at 2px 2px, rgba(34,58,94,0.08) 1.5px, transparent 1.6px);
+    background-size: 22px 22px;
+    color: var(--ink);
+    font-family: 'Baloo 2', sans-serif;
+    overflow-x:hidden;
+  }
+
+  .comic-font{ font-family:'Bangers', cursive; letter-spacing: 1px; }
+
+  a{ color: inherit; }
+
+  /* ---------- floating clouds ---------- */
+  .cloud{
+    position:fixed;
+    background: #ffffff;
+    border-radius: 50%;
+    opacity:0.7;
+    z-index:0;
+    box-shadow: 40px 10px 0 -6px #fff, -35px 8px 0 -8px #fff, 15px -18px 0 -4px #fff;
+  }
+
+  /* ---------- nav ---------- */
+  nav{
+    position: sticky; top:0; z-index: 50;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 14px 5vw;
+    background: var(--sky);
+    border-bottom: 4px solid var(--line);
+  }
+  .logo{
+    font-family:'Bangers', cursive;
+    font-size: 1.7rem;
+    color: var(--ink);
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{
+    width:14px; height:14px; background: var(--pop); border-radius:50%; border:2px solid var(--line);
+    display:inline-block;
+  }
+  .nav-links{ display:flex; gap: 26px; font-weight:700; font-size: 0.98rem;}
+  .nav-links a{ text-decoration:none; position:relative; padding: 4px 2px; }
+  .nav-links a:hover{ color: var(--pop-deep); }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-3px; height:3px; width:0%;
+    background: var(--pop-deep); transition: width .25s ease;
+  }
+  .nav-links a:hover::after{ width:100%; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;
+    min-height: auto;
+    display:flex; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 60px 6vw 50px;
+    z-index:1;
+    overflow:hidden;
+  }
+  .burst{
+    position:absolute; z-index:1; opacity:0.9;
+  }
+  .hero-inner{ max-width: 720px; position:relative; z-index:2; }
+  .eyebrow{
+    display:inline-block; background: var(--panel); border:3px solid var(--line);
+    padding: 6px 18px; border-radius: 30px; font-weight:800; font-size:0.85rem;
+    box-shadow: 4px 4px 0 var(--line); transform: rotate(-3deg); margin-bottom: 22px;
+  }
+  h1.hero-title{
+    font-family:'Bangers', cursive;
+    font-size: clamp(3rem, 8vw, 5.6rem);
+    line-height: 0.95;
+    margin: 0 0 18px;
+    color: var(--ink);
+    text-shadow: 4px 4px 0 var(--sun), 8px 8px 0 var(--line);
+  }
+  .hero p.sub{
+    font-size: clamp(1.05rem, 2vw, 1.25rem);
+    font-weight:600; color: var(--ink-soft);
+    max-width: 480px; margin: 0 auto 30px;
+  }
+  .cta-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .btn{
+    font-family:'Bangers', cursive; font-size:1.15rem; letter-spacing:1px;
+    padding: 14px 30px; border-radius: 14px; border: 3px solid var(--line);
+    cursor:pointer; text-decoration:none; display:inline-block;
+    box-shadow: 5px 5px 0 var(--line);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .btn:active, .btn:hover{ transform: translate(2px,2px); box-shadow: 3px 3px 0 var(--line); }
+  .btn-primary{ background: var(--pop); color:#2b2115; }
+  .btn-ghost{ background: var(--panel); color: var(--ink); }
+
+  /* mascot */
+  .mascot-wrap{ margin: 0 auto 22px; width: 170px; position:relative; }
+  .mascot-wrap svg{ width:100%; display:block; filter: drop-shadow(6px 8px 0 rgba(34,58,94,0.25)); }
+  .bounce{ animation: bounce 3.2s ease-in-out infinite; transform-origin: bottom center; }
+  @keyframes bounce{
+    0%,100%{ transform: translateY(0) rotate(-2deg); }
+    50%{ transform: translateY(-14px) rotate(2deg); }
+  }
+
+  .speech{
+    position:absolute; top: 6%; right: 6%; background:var(--panel);
+    border:3px solid var(--line); border-radius: 20px; padding: 10px 18px;
+    font-weight:700; font-size: 0.95rem; box-shadow: 4px 4px 0 var(--line);
+    transform: rotate(4deg);
+  }
+  .speech::after{
+    content:""; position:absolute; bottom:-14px; left: 30px;
+    border-width: 14px 10px 0; border-style: solid;
+    border-color: var(--line) transparent transparent transparent;
+  }
+  .speech::before{
+    content:""; position:absolute; bottom:-10px; left: 33px; z-index:1;
+    border-width: 11px 7px 0; border-style: solid;
+    border-color: var(--panel) transparent transparent transparent;
+  }
+
+  /* ---------- section shells ---------- */
+  section{ position:relative; z-index:1; padding: 64px 6vw; }
+  .section-head{ text-align:center; margin-bottom: 34px; }
+  .section-tag{
+    font-weight:800; color: var(--pop-deep); text-transform:uppercase; letter-spacing:2px; font-size:0.85rem;
+  }
+  h2.section-title{
+    font-family:'Bangers', cursive; font-size: clamp(2.2rem, 5vw, 3.4rem);
+    margin: 6px 0 0; color: var(--ink);
+  }
+
+  .panel-strip{ height: 26px; margin: 0; }
+  .panel-strip svg{ width:100%; height:100%; display:block; }
+
+  /* ---------- about ---------- */
+  .about-grid{
+    max-width: 950px; margin: 0 auto;
+    display:grid; grid-template-columns: 0.9fr 1.1fr; gap: 50px; align-items:center;
+  }
+  .comic-frame{
+    background: var(--panel); border: 4px solid var(--line); border-radius: 18px;
+    padding: 20px; box-shadow: 8px 8px 0 var(--line);
+    position:relative;
+  }
+  .comic-frame .frame-label{
+    position:absolute; top:-16px; left:20px; background: var(--sun);
+    border:3px solid var(--line); border-radius:8px; padding:2px 12px;
+    font-family:'Bangers', cursive; font-size:1rem;
+  }
+  .about-text p{ font-size:1.05rem; line-height:1.7; font-weight:600; color: var(--ink-soft); margin:0 0 16px; }
+  .halftone-box{ aspect-ratio: 1/1; border-radius:12px; overflow:hidden; position:relative; background: var(--sky-deep); }
+  .fact-row{ display:flex; gap:12px; flex-wrap:wrap; margin-top:22px; }
+  .fact-chip{
+    background: var(--panel); border:3px solid var(--line); border-radius:12px;
+    padding:10px 16px; font-weight:700; font-size:0.9rem; box-shadow:3px 3px 0 var(--line);
+  }
+  .fact-chip strong{ font-family:'Bangers', cursive; color: var(--pop-deep); font-size:1.1rem; margin-right:4px; }
+  .halftone-box{ aspect-ratio: 1/1; border-radius:12px; overflow:hidden; position:relative; background: var(--sky-deep); }
+
+  /* ---------- skills ---------- */
+  .skills-wrap{ max-width: 980px; margin:0 auto; display:flex; flex-wrap:wrap; gap:18px; justify-content:center; }
+  .skill-bubble{
+    background: var(--panel); border:3px solid var(--line); border-radius: 40px;
+    padding: 14px 24px; font-weight:800; font-size:1rem; display:flex; align-items:center; gap:10px;
+    box-shadow: 4px 4px 0 var(--line); position:relative; cursor:default;
+    transition: transform .2s ease;
+  }
+  .skill-bubble:hover{ transform: translateY(-6px) rotate(-2deg); }
+  .skill-bubble .pow{
+    font-family:'Bangers', cursive; color: var(--pop-deep); font-size:0.85rem;
+    position:absolute; top:-18px; right:-10px; opacity:0; transform: scale(0.5) rotate(-15deg);
+    transition: all .25s ease; text-shadow: 2px 2px 0 var(--sun);
+  }
+  .skill-bubble:hover .pow{ opacity:1; transform: scale(1.15) rotate(-15deg); }
+
+  /* ---------- work ---------- */
+  .work-grid{
+    max-width: 1100px; margin: 0 auto;
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+  }
+  .work-card{
+    background: var(--panel); border:4px solid var(--line); border-radius: 16px;
+    overflow:hidden; box-shadow: 7px 7px 0 var(--line);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .work-card:hover{ transform: translate(-3px,-3px); box-shadow: 10px 10px 0 var(--line); }
+  .work-thumb{
+    height: 170px; display:flex; align-items:center; justify-content:center;
+    position:relative; border-bottom: 4px solid var(--line);
+  }
+  .work-body{ padding: 18px 20px 22px; }
+  .work-body .tag{
+    display:inline-block; font-size:0.72rem; font-weight:800; letter-spacing:1px;
+    background: var(--sun); border:2px solid var(--line); border-radius:6px;
+    padding: 2px 8px; margin-bottom:10px;
+  }
+  .work-body h3{ font-family:'Bangers', cursive; font-size:1.4rem; margin: 0 0 6px; letter-spacing:0.5px;}
+  .work-body p{ margin:0; font-weight:600; color: var(--ink-soft); font-size:0.92rem; }
+
+  /* ---------- contact ---------- */
+  .contact-wrap{ max-width: 640px; margin: 0 auto; text-align:center; }
+  .contact-bubble{
+    background: var(--panel); border:4px solid var(--line); border-radius: 24px;
+    padding: 40px; box-shadow: 8px 8px 0 var(--line); position:relative;
+  }
+  form{ display:flex; flex-direction:column; gap:16px; margin-top:20px; text-align:left; }
+  label{ font-weight:800; font-size:0.9rem; }
+  input, textarea{
+    font-family:'Baloo 2', sans-serif; font-weight:600;
+    border:3px solid var(--line); border-radius:10px; padding: 10px 14px;
+    background: var(--sky); font-size:1rem;
+  }
+  input:focus, textarea:focus{ outline: 3px solid var(--pop); outline-offset:1px; }
+  textarea{ resize: vertical; min-height:90px; }
+  .send-btn{
+    align-self:flex-start; font-family:'Bangers', cursive; font-size:1.15rem;
+    background: var(--pop); border:3px solid var(--line); border-radius:12px;
+    padding: 12px 28px; cursor:pointer; box-shadow: 5px 5px 0 var(--line);
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .send-btn:hover{ transform: translate(2px,2px); box-shadow: 3px 3px 0 var(--line); }
+  .form-note{ margin-top:14px; font-weight:700; color: var(--pop-deep); min-height: 20px; }
+
+  footer{
+    text-align:center; padding: 30px; font-weight:700; color: var(--ink-soft); font-size:0.9rem;
+    border-top: 4px solid var(--line);
+  }
+
+  @media (max-width: 800px){
+    .about-grid{ grid-template-columns: 1fr; }
+    .work-grid{ grid-template-columns: 1fr; }
+    .nav-links{ display:none; }
+    .speech{ display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .bounce{ animation: none; }
+    *{ transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cloud" style="width:70px;height:70px; top:12%; left:8%;"></div>
+<div class="cloud" style="width:50px;height:50px; top:30%; left:85%;"></div>
+<div class="cloud" style="width:60px;height:60px; top:70%; left:5%;"></div>
+
+<nav>
+  <div class="logo"><span class="dot"></span>Rafizah<span class="dot" style="background:var(--sun)"></span></div>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#work">Work</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <svg class="burst" style="top:10%; left:6%; width:60px;" viewBox="0 0 100 100"><path d="M50 0 L61 39 L100 50 L61 61 L50 100 L39 61 L0 50 L39 39 Z" fill="var(--sun)" stroke="var(--line)" stroke-width="4"/></svg>
+  <svg class="burst" style="bottom:10%; right:8%; width:40px;" viewBox="0 0 100 100"><circle cx="50" cy="50" r="46" fill="none" stroke="var(--line)" stroke-width="5" stroke-dasharray="10 10"/></svg>
+  <div class="hero-inner">
+    <div class="mascot-wrap">
+      <svg class="bounce" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="150" rx="55" ry="16" fill="#000" opacity="0.08"/>
+        <path d="M60 90 Q40 40 65 45 Q75 60 80 85 Z" fill="#fff" stroke="var(--line)" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M140 90 Q160 40 135 45 Q125 60 120 85 Z" fill="#fff" stroke="var(--line)" stroke-width="4" stroke-linejoin="round"/>
+        <ellipse cx="100" cy="115" rx="48" ry="40" fill="#fff" stroke="var(--line)" stroke-width="4"/>
+        <ellipse cx="100" cy="140" rx="26" ry="20" fill="#fdf6e3" stroke="var(--line)" stroke-width="3.5"/>
+        <circle cx="84" cy="105" r="5" fill="var(--line)"/>
+        <circle cx="116" cy="105" r="5" fill="var(--line)"/>
+        <ellipse cx="100" cy="122" rx="7" ry="5" fill="var(--line)"/>
+        <path d="M92 132 Q100 138 108 132" stroke="var(--line)" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M60 165 Q45 175 55 182" stroke="var(--line)" stroke-width="6" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div class="speech">Hi, I'm Rafizah!</div>
+    </div>
+    <span class="eyebrow comic-font">✎ beginner designer, big ideas</span>
+    <h1 class="hero-title">DOODLES &amp;<br>DESIGN!</h1>
+    <p class="sub">I turn blank pages into little comic strips — logos, posters, and social sets with a playful pastel-blue soul.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn btn-primary">See my work →</a>
+      <a href="#contact" class="btn btn-ghost">Say hello</a>
+    </div>
+  </div>
+</section>
+
+<div class="panel-strip">
+  <svg preserveAspectRatio="none" viewBox="0 0 1200 26"><path d="M0 13 Q 30 0 60 13 T 120 13 T 180 13 T 240 13 T 300 13 T 360 13 T 420 13 T 480 13 T 540 13 T 600 13 T 660 13 T 720 13 T 780 13 T 840 13 T 900 13 T 960 13 T 1020 13 T 1080 13 T 1140 13 T 1200 13" stroke="var(--line)" stroke-width="3" fill="none"/></svg>
+</div>
+
+<section id="about">
+  <div class="section-head">
+    <div class="section-tag comic-font">Panel 01</div>
+    <h2 class="section-title">ABOUT ME</h2>
+  </div>
+  <div class="about-text" style="max-width:700px; margin:0 auto; text-align:center;">
+    <p>I'm Rafizah — a beginner graphic designer who believes good design should feel warm, playful, and easy to love.</p>
+    <p>I'm early in my journey, learning color theory, type pairing, and layout one project at a time. Thanks for reading along!</p>
+    <p>Currently exploring: branding basics, poster design, and social media kits with a cozy pastel palette.</p>
+    <div class="fact-row" style="justify-content:center;">
+      <div class="fact-chip"><strong>6+</strong> mini projects</div>
+      <div class="fact-chip"><strong>3</strong> tools learned</div>
+      <div class="fact-chip"><strong>∞</strong> pastel enthusiasm</div>
+    </div>
+  </div>
+</section>
+
+<section id="skills" style="background: var(--sky-deep); border-top:4px solid var(--line); border-bottom:4px solid var(--line);">
+  <div class="section-head">
+    <div class="section-tag comic-font">Panel 02</div>
+    <h2 class="section-title">MY TOOLKIT</h2>
+  </div>
+  <div class="skills-wrap">
+    <div class="skill-bubble">🎨 Color Theory <span class="pow">POW!</span></div>
+    <div class="skill-bubble">🖋️ Logo Sketching <span class="pow">ZAP!</span></div>
+    <div class="skill-bubble">🅰️ Typography <span class="pow">BAM!</span></div>
+    <div class="skill-bubble">📐 Layout &amp; Grids <span class="pow">WHAM!</span></div>
+    <div class="skill-bubble">🖼️ Poster Design <span class="pow">BOOM!</span></div>
+    <div class="skill-bubble">📱 Social Media Kits <span class="pow">ZOOM!</span></div>
+    <div class="skill-bubble">🧩 Canva &amp; Figma <span class="pow">SNAP!</span></div>
+  </div>
+</section>
+
+<section id="work">
+  <div class="section-head">
+    <div class="section-tag comic-font">Panel 03</div>
+    <h2 class="section-title">MY WORK SO FAR</h2>
+  </div>
+  <div class="work-grid" id="workGrid"></div>
+</section>
+
+<section id="contact" style="background: var(--sky-deep); border-top:4px solid var(--line);">
+  <div class="section-head">
+    <div class="section-tag comic-font">Panel 04</div>
+    <h2 class="section-title">LET'S TALK!</h2>
+  </div>
+  <div class="contact-wrap">
+    <div class="contact-bubble">
+      <p style="font-weight:700; color:var(--ink-soft); margin-top:0;">Got a project, a question, or just want to say hi? Drop a note below.</p>
+      <form id="contactForm">
+        <div>
+          <label for="name">Your name</label>
+          <input type="text" id="name" required placeholder="Jane Doe">
+        </div>
+        <div>
+          <label for="email">Your email</label>
+          <input type="email" id="email" required placeholder="jane@email.com">
+        </div>
+        <div>
+          <label for="message">Message</label>
+          <textarea id="message" required placeholder="Tell me about your idea..."></textarea>
+        </div>
+        <button type="submit" class="send-btn comic-font">SEND IT!</button>
+      </form>
+      <div class="form-note" id="formNote"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Made with 💙 by Rafizah — comic-strip dreams, pastel-blue skies.
+</footer>
+
+<script>
+  // ---- project data (edit this to add your real work) ----
+  const projects = [
+    { title: "Cloud Café Branding", tag: "BRANDING", desc: "Logo & mini brand kit for a cozy coffee shop concept.", bg: "#cfe8f7" },
+    { title: "Weekend Market Poster", tag: "POSTER", desc: "Playful event poster with hand-lettered type.", bg: "#ffe3b3" },
+    { title: "Sunny Days Insta Kit", tag: "SOCIAL", desc: "A 9-post grid template with pastel comic accents.", bg: "#ffd0c2" },
+    { title: "Bookworm Bookmark Set", tag: "PRINT", desc: "Illustrated bookmarks for a local library program.", bg: "#d9f2df" },
+    { title: "Paws & Co. Logo", tag: "LOGO", desc: "Friendly mark for a neighborhood pet-sitting service.", bg: "#e3d9f7" },
+    { title: "Rainy Day Zine", tag: "EDITORIAL", desc: "A 6-page mini zine exploring comic panel layouts.", bg: "#cfe8f7" }
+  ];
+
+  const grid = document.getElementById('workGrid');
+  projects.forEach((p, i) => {
+    const card = document.createElement('div');
+    card.className = 'work-card';
+    card.innerHTML = `
+      <div class="work-thumb" style="background:${p.bg}">
+        <svg width="70" height="70" viewBox="0 0 70 70">
+          <rect x="8" y="8" width="54" height="54" rx="10" fill="none" stroke="var(--line)" stroke-width="3.5"/>
+          <circle cx="35" cy="35" r="10" fill="var(--sun)" stroke="var(--line)" stroke-width="3"/>
+        </svg>
+      </div>
+      <div class="work-body">
+        <span class="tag">${p.tag}</span>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+      </div>
+    `;
+    grid.appendChild(card);
+  });
+
+  // ---- contact form (front-end only demo) ----
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    const name = document.getElementById('name').value.trim();
+    note.textContent = `Thanks, ${name || 'friend'}! Your message landed safely. 💌 (Connect a real email service to make this live.)`;
+    form.reset();
+  });
+</script>
+
+</body>
+</html>
